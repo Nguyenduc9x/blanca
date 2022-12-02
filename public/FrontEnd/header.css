@@ -1,0 +1,90 @@
+body p {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    margin: initial!important;
+    color: #afafaf;
+}
+
+.content {
+    width: calc(100% - 90px);
+    margin: 0 auto;
+    align-items: center;
+}
+.site-header {
+    margin-top: 12px;
+    margin-bottom: 40px;
+}
+.top-header-bar {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+.bar-left{
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+.bar-right{
+    display: flex;
+    flex-wrap: nowrap;
+}
+.contact-email{
+    margin-left: 20px;
+}
+
+ul.header-bar-icon{
+    list-style-type: none;
+    display: flex;
+    flex-wrap: nowrap;
+    margin-top: 20px;
+
+}
+li{
+    margin-right: 20px;
+    
+}
+.bar-search{
+    display: flex;
+    padding: 10px;
+}
+.site-title{
+    display: flex;
+}
+.navbar{
+    justify-content: center;
+}
+.navbar-main{
+    display: flex;
+    list-style-type: none;
+}
+.site-title a{
+    color: #2f2f2f;
+    text-decoration: none;
+    font-family: 'Grape Nuts', cursive;
+    font-size: 120px;
+    padding: 30px;
+}
+.site-title{
+justify-content: center;
+
+}
+.top-header-bar a{
+    color: #afafaf;
+    
+}
+.top-header-bar a:hover{
+    color: #2071eb;
+    
+}
+ul.navbar-main li{
+    padding: 10px;
+    margin-left: 30px;
+}
+li a {
+    text-decoration: none;
+    color: black;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
+    font-size: 15px;
+    font-weight: bold;
+}
