@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Author;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class CustomAuthController extends Controller
 {
@@ -64,4 +65,15 @@ class CustomAuthController extends Controller
     {
         return view("dashboard");
     }
+    
+    public function logined(Request $request)
+    {
+    // Retrieve the currently authenticated user...
+    $author = Auth::author();
+    
+    // Retrieve the currently authenticated user's ID...
+    $id = Auth::id();
+    }
+
 }
+

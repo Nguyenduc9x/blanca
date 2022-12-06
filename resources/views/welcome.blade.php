@@ -294,7 +294,7 @@
     </div>
 </body>
 <footer>
-    @include('footer')
+    @include('layouts.footer')
 </footer>
 
 </html>

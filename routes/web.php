@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CustomAuthController;
+use App\Http\Controllers\PasswordChange;
 use Illuminate\Support\Facades\Route;
 use PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Report\Php;
 
@@ -25,3 +26,5 @@ Route::get('/registration', [CustomAuthController::class,'registration']);
 Route::post('/register-author',[CustomAuthController::class,'registerAuthor'])->name('register-author');
 Route::post('/login-author',[CustomAuthController::class,'loginAuthor'])->name('login-author');
 Route::get('/dashboard',[CustomAuthController::class,'dashboard']);
+Route::get('/passwordchange',[PasswordChange::class,'passwordchange']);
+
