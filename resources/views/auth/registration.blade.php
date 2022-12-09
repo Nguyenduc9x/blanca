@@ -76,7 +76,7 @@
 
                             <div class="card bg-glass">
                                 <div class="card-body px-4 py-5 px-md-5">
-                                    <form  action="{{route('register-author')}}" method="post" >                                       
+                                    <form  action="{{route('register-user')}}" method="post" >                                       
                                         @if(Session::has('success'))
                                         <div class="alert alert-success">{{Session::get('success')}}</div>
                                         @endif

@@ -15,7 +15,7 @@ class CreatePostTable extends Migration
     {
         Schema::create('post', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('author_id')->unsigned()->index();
+            $table->bigInteger('users_id')->unsigned()->index();
             $table->string('name',128);
             $table->string('content',255);
             $table->datetime('datetime');
@@ -28,7 +28,7 @@ class CreatePostTable extends Migration
             $table->dateTime('deleted');
 
             
-            $table->foreign('author_id')->references('id')->on('author')->onDelete('cascade');
+            $table->foreign('users_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('category_id')->references('id')->on('category')->onDelete('cascade');
            
             

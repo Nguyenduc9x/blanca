@@ -16,7 +16,7 @@
         <ul class="nav flex-column sub-menu">
           <li class="nav-item"> <a class="nav-link" href="{{route('my-profile')}}">Account information</a></li>
           <li class="nav-item"> <a class="nav-link" href="{{route('change-password')}}">Change Password</a></li>
-          <li class="nav-item"> <a class="nav-link" href="FrontEnd/Admin/pages/ui-features/typography.html">User maganer</a></li>
+          <li class="nav-item"> <a class="nav-link" href="{{route('user-list')}}">User maganer</a></li>
         </ul>
       </div>
     </li>

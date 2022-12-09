@@ -5,15 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Author extends Model
+class User extends Model
 {
     use HasFactory;
-    protected $table = 'Author';
+    protected $table = 'Users';
 
     protected $fillable = [
         'name',
+        'username',
         'email',
-        'password'
-
-    ];
+        'level',
+        'password',
+        'bio',
+        'date_birth'
+  ];
 }

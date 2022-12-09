@@ -94,17 +94,17 @@
                                         <div class="row align-items-start">
                                         <div class="mb-3">
                                                 <label for="exampleFormControlInput1" class="form-label">Full name</label>
-                                                <input type="email" class="form-control" id="exampleFormControlInput1">
+                                                <input type="text" class="form-control" id="exampleFormControlInput1" value="{{ $data->name }}">
                                             </div>
                                             <div class="mb-3">
                                                 <label for="exampleFormControlInput1" class="form-label">Email address</label>
-                                                <input type="email" class="form-control" id="exampleFormControlInput1">
+                                                <input type="email" class="form-control" id="exampleFormControlInput1" value="{{ $data->email }}">
                                                 <span class="text-danger">@error('email'){{$message}}@enderror</span>
                                             </div>
                                             <div class="mb-3" style="width: 300px;">
                                                 <label for="exampleFormControlInput1" class="form-label">Birthday</label>
                                                 <div class="input-group date" id="datepicker">
-                                                    <input type="type" class="form-control">
+                                                    <input type="type" class="form-control" value="{{ $data->date_birth }}">
                                                     <span class="input-group-append">
                                                         <span class="input-group-text bg-white">
                                                             <i class="mdi mdi-calendar"></i>
@@ -117,7 +117,7 @@
                                                 <input class="form-control form-control-sm" id="formFileSm" type="file" style="background-color: white;">
                                             </div>
                                             <div class="mb-3">
-                                                <label for="exampleFormControlTextarea1" class="form-label">Bio</label>
+                                                <label for="exampleFormControlTextarea1" class="form-label" value="{{ $data->bio }}">Bio</label>
                                                 <textarea class="form-control" id="exampleFormControlTextarea1" style="height:200px;"></textarea>
                                             </div>
                                         </div>
