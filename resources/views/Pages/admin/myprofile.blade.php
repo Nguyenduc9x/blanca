@@ -89,22 +89,30 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div id="myprofile" class="col-md-6 col-md-offset-6"  >
-                                <form action="">
+                                <form action="{{route('myprofile-upload')}}" method="post" enctype="multipart/form-data">
+                                    @if(Session::get('success'))
+                                     <div class="alert alert-success">{{Session::get('success')}}</div>
+                                    @endif
+                                    @if(Session::get('fail'))
+                                     <div class="alert alert-fail">{{Session::get('fail')}}</div>
+                                    @endif
+                                    @csrf
                                     <div class="container">
                                         <div class="row align-items-start">
-                                        <div class="mb-3">
+                                            <div class="mb-3">
                                                 <label for="exampleFormControlInput1" class="form-label">Full name</label>
-                                                <input type="text" class="form-control" id="exampleFormControlInput1" value="{{ $data->name }}">
+                                                <input type="text" class="form-control" id="exampleFormControlInput1" value="{{ Auth::user()->name }}" name="name">
+                                                <span class="text-danger">@error('name'){{$message}}@enderror</span>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="exampleFormControlInput1" class="form-label">Email address</label>
-                                                <input type="email" class="form-control" id="exampleFormControlInput1" value="{{ $data->email }}">
+                                                <input type="email" class="form-control" id="exampleFormControlInput1" value="{{ Auth::user()->email }}" name="email">
                                                 <span class="text-danger">@error('email'){{$message}}@enderror</span>
                                             </div>
                                             <div class="mb-3" style="width: 300px;">
                                                 <label for="exampleFormControlInput1" class="form-label">Birthday</label>
                                                 <div class="input-group date" id="datepicker">
-                                                    <input type="type" class="form-control" value="{{ $data->date_birth }}">
+                                                    <input type="type" class="form-control" value="{{ Auth::user()->date_birth }}" name="date_birth">
                                                     <span class="input-group-append">
                                                         <span class="input-group-text bg-white">
                                                             <i class="mdi mdi-calendar"></i>
@@ -114,11 +122,11 @@
                                             </div>
                                             <div class="mb-3">
                                                 <label for="formFileSm" class="form-label">Change Avatar</label>
-                                                <input class="form-control form-control-sm" id="formFileSm" type="file" style="background-color: white;">
+                                                <input class="form-control form-control-sm" id="formFileSm" type="file" style="background-color: white;" name="image">
                                             </div>
                                             <div class="mb-3">
-                                                <label for="exampleFormControlTextarea1" class="form-label" value="{{ $data->bio }}">Bio</label>
-                                                <textarea class="form-control" id="exampleFormControlTextarea1" style="height:200px;"></textarea>
+                                                <label for="exampleFormControlTextarea1" class="form-label" value="{{ Auth::user()->bio }}" >Bio</label>
+                                                <textarea class="form-control" id="exampleFormControlTextarea1" style="height:200px;" name="bio"></textarea>
                                             </div>
                                         </div>
                                         <input type="submit" id="btn-sub" class="btn btn-primary btn-block" value="Update">

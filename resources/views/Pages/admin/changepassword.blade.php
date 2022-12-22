@@ -41,16 +41,25 @@
               <div class="col-sm-12">
                 <div id="change-password" class="col-md-6 col-md-offset-6">
                   <div class="panel-heading">Change Password</div>
-                  <form action="">
+                  <form action="{{route('user-changepassword')}}" method="post">
+                    @if(Session::get('success'))
+                      <div class="alert alert-success">{{Session::get('success')}}</div>
+                    @endif
+                    @if(Session::get('fail'))
+                      <div class="alert alert-fail">{{Session::get('fail')}}</div>
+                    @endif
+                    @csrf
                     <div class="form-group">
                       <label for="exampleInputPassword1">New Password</label>
-                      <input type="password" class="form-control" id="newpw" placeholder="Password" required style="width: 400px;">
+                      <input type="password" class="form-control" id="newpw" placeholder="Password" name="password" required style="width: 400px;">
+                      <span class="text-danger">@error('password'){{$message}}@enderror</span>
                     </div>
                     <div class="form-group">
                       <label for="exampleInputPassword1">Repeat New Password</label>
-                      <input type="password" class="form-control" id="repeatnewpw" placeholder="Password" required style="width: 400px;">
+                      <input type="password" class="form-control" id="repeatnewpw" placeholder="Password" name="repeatpassword" required style="width: 400px;">
+                      <span class="text-danger">@error('password'){{$message}}@enderror</span>
                     </div>
-                    <input type="submit" id="btn-sub" class="btn btn-primary btn-block" value="Send">
+                    <input type="submit" id="btn-sub" class="btn btn-primary btn-block" value="Update">
                   </form>
                 </div>
               </div>

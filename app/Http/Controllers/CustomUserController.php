@@ -7,6 +7,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Psy\Command\WhereamiCommand;
 
 class CustomUserController extends Controller
 {
@@ -23,104 +25,148 @@ class CustomUserController extends Controller
     public function registerUser(Request $request)
     {
         $request->validate([
-            'name'=>'required',
-            'email'=>'required|email',
-            'password'=>'required|min:5|max:12'
+            'name' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|min:5|max:12'
         ]);
 
-        $user = new User();
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = Hash::make($request->password);
-        $res = $user->save();
-        if($res){
-            return back()->with('success','You have registered successfuly');
-        }else{
-            return back()->with('fail','Something wrong');
-        }
+        $data = $request->all();
+
+        User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password'])
+        ]);
+
+        return redirect('login')->with('success', 'You have registered successfuly, now you can login');
     }
 
     public function loginUser(Request $request)
     {
         $request->validate([
-            'email'=>'required|email',
-            'password'=>'required|min:5|max:12'
+            'email' => 'required|email',
+            'password' => 'required|min:5|max:12'
         ]);
 
-        $user = User::where('email', '=', $request->email)->first();
+        $credentials = $request->only('email', 'password');
 
-        if($user){
-            if(Hash::check($request->password,$user->password)){
-                $request->session()->put('loginId',$user->id);
-
-                return redirect('dashboard');
-            } else {
-                return back()->with('fail','Password not match.');
-            }
-        }else {
-            return back()->with('fail','This email is not registered.');
+        if (Auth::attempt($credentials)) {
+            return redirect('dashboard');
         }
-        
 
+        return  redirect('login')->with('success', 'Login details are not valid');
     }
 
     public function dashboard()
     {
-        $data = array();
-        if(Session::has('loginId')){
-            $data = User::where('id', '=' ,Session::get('loginId'))->first();
+        if (Auth::check()) {
+            return view('dashboard');
         }
-        return view("dashboard",compact('data'));
-    }
-    
-    public function changepassword()
-    {
-        $data = array();
-        if(Session::has('loginId')){
-            $data = User::where('id', '=' ,Session::get('loginId'))->first();
-        }
-        return view("Pages.admin.changepassword",compact('data'));
+
+        return redirect('login')->with('success', 'You are not allowed to access');
     }
 
     public function myprofile()
     {
-        $data = array();
-        if(Session::has('loginId'))
-        {
-            $data = User::where('id', '=' ,Session::get('loginId'))->first();
-        return view("Pages.admin.myprofile",compact('data'));
+        if (Auth::check()) {
+            return view('Pages.admin.myprofile');
         }
 
+        return redirect('login')->with('success', 'You are not allowed to access');
+    }
 
-    }   
+    public function profileUpdate(Request $request)
+    {
+        //validation rules
+
+        $request->validate([
+            'name' => 'min:4|string|max:255',
+            'email' => 'email|string|max:255',
+            'date_birth' => 'date|string|max:255',
+            'image' => 'nullable|image|mimes:jpg,png,jpeg,gif,svg|max:2048|dimensions:min_width=100,min_height=100,max_width=1000,max_height=1000',
+        ]);
+        // dd($request->all());
+        $imageName = time() . '.' . $request->image->extension(); 
+        $user =Auth::user();
+        // $user = new User();
+        $user->name = $request['name'];
+        $user->email = $request['email'];
+        $user->image = $request['image']->storeAs('public/storage',$imageName);
+        $user->bio = $request['bio'];
+        $user->date_birth = $request['date_birth'];
+        $user->save();
+
+
+
+        return back()->with('success', 'Update success');
+    }
+    
+    public function changepassword()
+    {
+        if (Auth::check()) {
+            return view('Pages.admin.changepassword');
+        }
+
+        return redirect('login')->with('success', 'You are not allowed to access');
+    }
+
+    public function userchangepassword(Request $request)
+    {
+        $request->validate([
+            'password' => 'required|min:5|max:12|same:repeatpassword',
+            'repeatpassword' => 'required|min:5|max:12',
+        ]);
+        
+        $user =Auth::user();
+        $user->password = Hash::make($request['password']);
+        $user->save();
+        
+        return back()->with('success', 'Your password has been changed successfully');
+    }
+    
+
+
 
     public function userlist()
     {
-        $data = array();
-        if(Session::has('loginId')){
-            $data = User::where('id', '=' ,Session::get('loginId'))->first();
-        return view("Pages.admin.userlist",compact('data'));
+        $data = DB::table('users')->paginate(10);
+        return view('Pages.admin.userlist',compact('data'));
     }
-    }
-        public function logined(Request $request)
+
+
+    public function logined(Request $request)
     {
-    // Retrieve the currently authenticated user...
-    $user = Auth::user();
+        // Retrieve the currently authenticated user...
+        $user = Auth::user();
 
-    // Retrieve the currently authenticated user's ID...
-    $id = Auth::id();
+        // Retrieve the currently authenticated user's ID...
+        $id = Auth::id();
     }
 
-    public function logout()
+    function logout()
     {
-        if(Session::has('loginId')) 
-        {
-            Session::pull('loginId');
-            return redirect('login');
-        }
+        Session::flush();
+
+        Auth::logout();
+
+        return Redirect('login');
     }
 
+    public function useredit(Request $request)
+    {
+        $request->validate([
+            'name' => 'min:4|string|max:255',
+            'email' => 'email|string|max:255',
+        ]);
+        
+        $useredit = [
+            'name' => $request->name,
+            'email' => $request->email
+        ];
+        // return dd($useredit);
+
+        DB::table('users')->Where('id',$request->id)->update($useredit);
+        return redirect()->back()->with('userUpdate','Changed');
+    }
 
 }
-
-

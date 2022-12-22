@@ -20,13 +20,18 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::controller(CustomUserController::class)->group(function(){
+    Route::get('login','login');
+    Route::get('registration', 'registration');
+    Route::post('register-user','registerUser')->name('register-user');
+    Route::post('login-user','loginUser')->name('login-user');
+    Route::get('logout','logout');
+    Route::get('dashboard','dashboard');
+    Route::get('userlist','userlist')->name('user-list');
+    Route::get('myprofile','myprofile')->name('my-profile');
+    Route::post('myprofile-upload','profileUpdate')->name('myprofile-upload');
+    Route::get('changepassword','changepassword')->name('change-password');
+    Route::post('user-changepassword','userchangepassword')->name('user-changepassword');
+    Route::post('useredit','useredit')->name('user-edit');
+});
 
-Route::get('/login', [CustomUserController::class,'login'])->middleware('alreadyLoggedIn');
-Route::get('/registration', [CustomUserController::class,'registration'])->middleware('alreadyLoggedIn');;
-Route::post('/register-user',[CustomUserController::class,'registerUser'])->name('register-user');
-Route::post('/login-user',[CustomUserController::class,'loginUser'])->name('login-user');
-Route::get('/dashboard',[CustomUserController::class,'dashboard'])->middleware('isLoggedIn');
-Route::get('/user/changepassword',[CustomUserController::class,'changepassword'])->name('change-password');
-Route::get('/myprofile',[CustomUserController::class,'myprofile'])->name('my-profile');
-Route::get('/userlist',[CustomUserController::class,'userlist'])->name('user-list');
-Route::get('/logout',[CustomUserController::class,'logout']);

@@ -77,20 +77,15 @@
                             <div class="card bg-glass">
                                 <div class="card-body px-4 py-5 px-md-5">
                                     <form  action="{{route('register-user')}}" method="post" >                                       
-                                        @if(Session::has('success'))
-                                        <div class="alert alert-success">{{Session::get('success')}}</div>
-                                        @endif
-                                        @if(Session::has('fail'))
-                                        <div class="alert alert-danger">{{Session::get('fail')}}</div>
-                                        @endif
                                         @csrf
-                                        <!-- 2 column grid layout with text inputs for the first and last names -->
                                         <div class="row">
                                             <div class="col-large">
                                                 <div class="form-outline">
                                                     <input type="text" id="form3Example1" class="form-control" placeholder="Input your full name" name="name" value="{{old('name')}}" >
                                                     <label class="form-label" for="form3Example1">Full name</label>
-                                                    <span class="text-danger">@error('name'){{$message}}@enderror</span>
+                                                    @if($errors->has('name'))
+                                                    <span class="text-danger">{{$errors->first('name')}}</span>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>
@@ -98,14 +93,18 @@
                                         <div class="form-outline mb-4">
                                             <input type="email" id="email" class="form-control"  placeholder="Input your email" name="email" >
                                             <label class="form-label" for="form3Example3">Email address</label>
-                                            <span class="text-danger">@error('email'){{$message}}@enderror</span>
+                                            @if($errors->has('email'))
+                                            <span class="text-danger">{{$errors->first('email')}}</span>
+                                            @endif
                                         </div>
 
                                         <!-- Password input -->
                                         <div class="form-outline mb-4">
                                             <input type="password" id="form3Example4" class="form-control" placeholder="Enter password" name="password" >
                                             <label class="form-label" for="form3Example4">Password</label>
-                                            <span class="text-danger">@error('password'){{$message}}@enderror</span>
+                                            @if($errors->has('password'))
+                                            <span class="text-danger">{{$errors->first('password')}}</span>
+                                            @endif
                                         </div>
 
                                         <!-- Submit button -->
