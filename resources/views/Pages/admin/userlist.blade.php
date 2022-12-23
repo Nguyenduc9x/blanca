@@ -76,18 +76,13 @@
                                                             </td>
                                                             <td style="width: 20%;">
                                                                     <span class="menu-icon">
-                                                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                                                            <i class="mdi mdi-grease-pencil"></i>
-                                                                        </button>
+                                                                        <a href="#edit{{$item->id}}" data-bs-toggle="modal" class="btn btn-success"><i class='fa fa-edit'></i> Edit</a> 
                                                                     </span>
-                                                                </a>
-                                                                <a href="#" class="table-link danger">
                                                                     <span class="menu-icon">
-                                                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal1">
-                                                                            <i class="mdi mdi-delete-variant"></i>
+                                                                        <a href="#delete{{$item->id}}" data-bs-toggle="modal" class="btn btn-danger"><i class='fa fa-trash'></i> Delete</a>
                                                                         </button>
                                                                     </span>
-                                                                </a>
+                                                                    @include('Modal.edit')
                                                             </td>
                                                         </tr>
                                                     @endforeach
@@ -101,7 +96,6 @@
                                     </div>
                                     <div class="row">{{ $data->links()}}
                                     </div>
-                                    @include('Modal.edit')
                                 </div>
                             </div>
                         </div>
@@ -133,8 +127,8 @@
     <!-- Custom js for this page-->
     <script src="FrontEnd/Admin/js/dashboard.js"></script>
     <script src="FrontEnd/Admin/js/Chart.roundedBarCharts.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script type="text/javascript">
         $(function(){
             $('#datepicker').datepicker();

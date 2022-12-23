@@ -33,5 +33,15 @@ Route::controller(CustomUserController::class)->group(function(){
     Route::get('changepassword','changepassword')->name('change-password');
     Route::post('user-changepassword','userchangepassword')->name('user-changepassword');
     Route::post('useredit','useredit')->name('user-edit');
+ 
+    Route::get('/', 'getMembers');
+     
+    Route::post('/save', 'save');
+     
+    Route::patch('/update/{id}', ['as' => 'item.update', 'uses' => 'update']);
+     
+    Route::delete('/delete/{id}', ['as' => 'item.delete', 'uses' => 'delete']);
 });
+ 
+
 

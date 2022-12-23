@@ -152,21 +152,42 @@ class CustomUserController extends Controller
         return Redirect('login');
     }
 
-    public function useredit(Request $request)
-    {
-        $request->validate([
-            'name' => 'min:4|string|max:255',
-            'email' => 'email|string|max:255',
-        ]);
+    // public function useredit(Request $request)
+    // {
+    //     $request->validate([
+    //         'name' => 'min:4|string|max:255',
+    //         'email' => 'email|string|max:255',
+    //     ]);
         
-        $useredit = [
-            'name' => $request->name,
-            'email' => $request->email
-        ];
-        // return dd($useredit);
+    //     $useredit = [
+    //         'name' => $request->name,
+    //         'email' => $request->email
+    //     ];
+    //     // return dd($useredit);
 
-        DB::table('users')->Where('id',$request->id)->update($useredit);
-        return redirect()->back()->with('userUpdate','Changed');
+    //     DB::table('users')->Where('id',$request->id)->update($useredit);
+    //     return redirect()->back()->with('userUpdate','Changed');
+    // }
+
+    public function getUsers(){
+        $users = User::all();
+ 
+        return view('userlist')->with('users', $users);
     }
-
+ 
+    public function update(Request $request, $id){
+        $user = User::find($id);
+        $input = $request->all();
+        $user->fill($input)->save();
+ 
+        return redirect('/');
+    }
+ 
+    public function delete($id)
+    {
+        $users = User::find($id);
+        $users->delete();
+  
+        return redirect('/');
+    }
 }
