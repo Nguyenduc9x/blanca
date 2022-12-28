@@ -15,11 +15,12 @@ class CreateCategoryTable extends Migration
     {
         Schema::create('category', function (Blueprint $table) {
             $table->id();
+            $table->name();
             $table->string('description',255);
             $table->integer('is_active');
-            $table->dateTime('created');
-            $table->dateTime('update');
-            $table->dateTime('deleted');
+            $table->dateTime('created_at');
+            $table->dateTime('updated_at');
+            $table->dateTime('deleted_at');
         });
     }
 

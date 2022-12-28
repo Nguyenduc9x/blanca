@@ -93,9 +93,9 @@
                                     @if(Session::get('success'))
                                      <div class="alert alert-success">{{Session::get('success')}}</div>
                                     @endif
-                                    @if(Session::get('fail'))
+                                    {{-- @if(Session::get('fail'))
                                      <div class="alert alert-fail">{{Session::get('fail')}}</div>
-                                    @endif
+                                    @endif --}}
                                     @csrf
                                     <div class="container">
                                         <div class="row align-items-start">

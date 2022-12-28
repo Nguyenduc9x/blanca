@@ -28,8 +28,9 @@
       </a>
       <div class="collapse" id="form-elements">
         <ul class="nav flex-column sub-menu">
-          <li class="nav-item"><a class="nav-link" href="FrontEnd/Admin/pages/forms/basic_elements.html">All post</a></li>
-          <li class="nav-item"><a class="nav-link" href="FrontEnd/Admin/pages/forms/basic_elements.html">Add new</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{route('post-list')}}">All post</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{route('new-post')}}">Add new</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{route('list-category')}}">Categories</a></li>
         </ul>
       </div>
     </li>
@@ -41,7 +42,7 @@
       </a>
       <div class="collapse" id="charts">
         <ul class="nav flex-column sub-menu">
-          <li class="nav-item"> <a class="nav-link" href="FrontEnd/Admin/pages/charts/chartjs.html">Add/delete</a></li>
+          <li class="nav-item"> <a class="nav-link" href="#">Add/delete</a></li>
         </ul>
       </div>
     </li>
@@ -53,7 +54,7 @@
       </a>
       <div class="collapse" id="tables">
         <ul class="nav flex-column sub-menu">
-          <li class="nav-item"> <a class="nav-link" href="FrontEnd/Admin/pages/tables/basic-table.html">All Comment</a></li>
+          <li class="nav-item"> <a class="nav-link" href="#">All Comment</a></li>
         </ul>
       </div>
     </li>

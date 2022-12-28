@@ -34,13 +34,18 @@ Route::controller(CustomUserController::class)->group(function(){
     Route::post('user-changepassword','userchangepassword')->name('user-changepassword');
     Route::post('useredit','useredit')->name('user-edit');
  
-    Route::get('/', 'getMembers');
-     
-    Route::post('/save', 'save');
+    Route::get('/getusers', 'getUsers');
      
     Route::patch('/update/{id}', ['as' => 'item.update', 'uses' => 'update']);
      
     Route::delete('/delete/{id}', ['as' => 'item.delete', 'uses' => 'delete']);
+
+
+    Route::get('postlist','postlist')->name('post-list');
+    Route::get('addpost','newpost')->name('new-post');
+    Route::get('category','category')->name('list-category');
+
+    Route::post('/add', 'addnew');
 });
  
 

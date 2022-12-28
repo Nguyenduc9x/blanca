@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Post;
+use App\Models\Category;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -83,17 +86,16 @@ class CustomUserController extends Controller
             'name' => 'min:4|string|max:255',
             'email' => 'email|string|max:255',
             'date_birth' => 'date|string|max:255',
-            'image' => 'nullable|image|mimes:jpg,png,jpeg,gif,svg|max:2048|dimensions:min_width=100,min_height=100,max_width=1000,max_height=1000',
+            // 'image' => 'nullable|image|mimes:jpg,png,jpeg,gif,svg|max:2048|dimensions:min_width=100,min_height=100,max_width=1000,max_height=1000',
         ]);
         // dd($request->all());
-        $imageName = time() . '.' . $request->image->extension(); 
+        $imageName = time() . '.' . $request->file('image')->extension(); 
         $user =Auth::user();
-        // $user = new User();
         $user->name = $request['name'];
         $user->email = $request['email'];
-        $user->image = $request['image']->storeAs('public/storage',$imageName);
+        $user->image = $request['image']->storeAs('storage',$imageName);
         $user->bio = $request['bio'];
-        $user->date_birth = $request['date_birth'];
+        $user->date_birth = Carbon::parse($request['date_birth'])->format('Y-m-d');
         $user->save();
 
 
@@ -152,27 +154,10 @@ class CustomUserController extends Controller
         return Redirect('login');
     }
 
-    // public function useredit(Request $request)
-    // {
-    //     $request->validate([
-    //         'name' => 'min:4|string|max:255',
-    //         'email' => 'email|string|max:255',
-    //     ]);
-        
-    //     $useredit = [
-    //         'name' => $request->name,
-    //         'email' => $request->email
-    //     ];
-    //     // return dd($useredit);
-
-    //     DB::table('users')->Where('id',$request->id)->update($useredit);
-    //     return redirect()->back()->with('userUpdate','Changed');
-    // }
-
     public function getUsers(){
         $users = User::all();
  
-        return view('userlist')->with('users', $users);
+        return view('Pages.admin.userlist')->with('users', $users);
     }
  
     public function update(Request $request, $id){
@@ -180,7 +165,7 @@ class CustomUserController extends Controller
         $input = $request->all();
         $user->fill($input)->save();
  
-        return redirect('/');
+        return redirect('/userlist')->with('success','updated');
     }
  
     public function delete($id)
@@ -188,6 +173,71 @@ class CustomUserController extends Controller
         $users = User::find($id);
         $users->delete();
   
-        return redirect('/');
+        return redirect('/userlist')->with('success','deleted');
+    }
+
+    public function postlist()
+    {
+        $data = DB::table('post')->paginate(10);
+        return view('Pages.admin.post',compact('data'));
+    }
+
+    public function newpost()
+    {
+        $category = Category::all();
+        return view('Pages.admin.addnew.newpost',compact('category'));
+    }
+    
+    public function addpost(Request $request)
+    {
+        $request->validate([
+            'name' => 'min:4|string|max:255',
+            '' => 'email|string|max:255',
+            'date_birth' => 'date|string|max:255',
+            'image' => 'nullable|image|mimes:jpg,png,jpeg,gif,svg|max:2048|dimensions:min_width=100,min_height=100,max_width=1000,max_height=1000',
+        ]);
+        // dd($request->all());
+        $imageName = time() . '.' . $request->file('image')->extension(); 
+        
+        $post = new Post();
+        $post->name = $request['name'];
+        $post->content = $request['content'];
+        $post->image = $request['image']->storeAs('postimage',$imageName);
+        $post->category_id = $request['category_id'];
+        $post->save();
+
+        return redirect('')->with('message','Post added Success');
+
+    }
+
+    public function category()
+    {
+        $data = DB::table('category')->paginate(2);
+        return view('Pages.admin.category',compact('data'));
+    }
+
+    public function categorypost()
+    {
+        $category = Category::all();
+        // dd($category);
+        return view('Pages.admin.addnew.newpost',compact('category'));
+    }
+
+    public function addnew(Request $request){
+        // dd($request->all());
+        $category = new Category;
+        $category->name = $request['name'];
+        $category->description = $request['description'];
+        $category->save();
+        
+        return redirect('/category')->with('success','added');
+    }
+
+    public function deletepost($id)
+    {
+        $users = Post::find($id);
+        $users->delete();
+  
+        return redirect('/post')->with('success','deleted');
     }
 }
