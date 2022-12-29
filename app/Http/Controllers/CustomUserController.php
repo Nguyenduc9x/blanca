@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Post;
+use App\Models\Tags;
 use App\Models\Category;
+use App\Models\PostTag;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Hash;
@@ -192,27 +194,43 @@ class CustomUserController extends Controller
     {
         $request->validate([
             'name' => 'min:4|string|max:255',
-            '' => 'email|string|max:255',
-            'date_birth' => 'date|string|max:255',
-            'image' => 'nullable|image|mimes:jpg,png,jpeg,gif,svg|max:2048|dimensions:min_width=100,min_height=100,max_width=1000,max_height=1000',
+            'content' => 'string|max:255',
+            'category_id' => 'string|max:255',
+            // 'tag_title' => 'unique:tags|max:255',
+            'image' => 'image|mimes:jpg,png,jpeg,gif,svg|max:2048|dimensions:min_width=100,min_height=100,max_width=1000,max_height=1000',
         ]);
         // dd($request->all());
+        if (!$request->has('image')) {
         $imageName = time() . '.' . $request->file('image')->extension(); 
+        }
         
         $post = new Post();
         $post->name = $request['name'];
         $post->content = $request['content'];
         $post->image = $request['image']->storeAs('postimage',$imageName);
+        
+        
         $post->category_id = $request['category_id'];
         $post->save();
+        
 
-        return redirect('')->with('message','Post added Success');
 
+        $tags = new Tags();
+        $tags -> tag_title  = $request['tag_title'];
+        $tags->save();
+        
+
+        // dd($post->id());
+        $posttag = new PostTag();
+        $posttag->tags_id = $post->id;
+        $posttag->post_id = $tags->id;
+        $posttag->save();
+        return redirect('/addpost')->with('success','Post added Success');
     }
 
     public function category()
     {
-        $data = DB::table('category')->paginate(2);
+        $data = DB::table('category')->paginate(4);
         return view('Pages.admin.category',compact('data'));
     }
 

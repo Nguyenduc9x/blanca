@@ -54,7 +54,7 @@
       </a>
       <div class="collapse" id="tables">
         <ul class="nav flex-column sub-menu">
-          <li class="nav-item"> <a class="nav-link" href="#">All Comment</a></li>
+          <li class="nav-item"> <a class="nav-link" href="#">List Comment</a></li>
         </ul>
       </div>
     </li>
@@ -66,7 +66,7 @@
       </a>
       <div class="collapse" id="icons">
         <ul class="nav flex-column sub-menu">
-          <li class="nav-item"> <a class="nav-link" href="FrontEnd/Admin/pages/icons/mdi.html">All contact</a></li>
+          <li class="nav-item"> <a class="nav-link" href="FrontEnd/Admin/pages/icons/mdi.html">List Contact</a></li>
         </ul>
       </div>
     </li>

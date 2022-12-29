@@ -45,7 +45,7 @@
                       <div class="row">
                         <div class="col-sm-12">
                             <div id="myprofile" class="col-md-12 col-md-offset-6">
-                                <form action="{{route('new-post')}}" method="post" enctype="multipart/form-data">
+                                <form action="{{route('add-post')}}" method="post" enctype="multipart/form-data">
                                     @if(Session::get('success'))
                                      <div class="alert alert-success">{{Session::get('success')}}</div>
                                     @endif
@@ -70,7 +70,7 @@
                                           </div>
                                           <div class="mb-3">
                                               <label for="exampleFormControlInput1" class="form-label">Tags</label>
-                                              <input type="text" class="form-control" id="exampleFormControlInput1" name="content" style="width:50%">
+                                              <input type="text" class="form-control" id="exampleFormControlInput1" name="tag_title" style="width:50%">
                                               <span class="text-danger">@error('email'){{$message}}@enderror</span>
                                           </div>
                                           
@@ -80,7 +80,7 @@
                                           </div>
                                           <div class="mb-3">
                                               <label for="exampleFormControlTextarea1" class="form-label" >Content</label>
-                                              <textarea class="form-control" id="exampleFormControlTextarea1" style="height:200px;" name="bio"></textarea>
+                                              <textarea class="form-control" id="exampleFormControlTextarea1" style="height:200px;" name="content"></textarea>
                                           </div>
                                       </div>
                                       <input type="submit" id="btn-sub" class="btn btn-primary btn-block" value="Update">

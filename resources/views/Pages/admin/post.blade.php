@@ -68,15 +68,15 @@
                                                               <td>
                                                                   {{$item->content}}
                                                               </td>
-                                                              <td>
+                                                              {{-- <td>
                                                                   <a>{{$item->Tags}}</a>
-                                                              </td>
+                                                              </td> --}}
                                                               <td>
                                                                   <a>{{$item->comment_count}}</a>
                                                               </td>
-                                                              <td>
+                                                              {{-- <td>
                                                                   <a>{{$item->Date}}</a>
-                                                              </td>
+                                                              </td> --}}
                                                               <td style="width: 20%;">
                                                                       <span class="menu-icon">
                                                                           <a href="#edit{{$item->id}}" data-bs-toggle="modal" class="btn btn-success"><i class='fa fa-edit'></i> Edit</a> 
@@ -85,7 +85,7 @@
                                                                           <a href="#delete{{$item->id}}" data-bs-toggle="modal" class="btn btn-danger"><i class='fa fa-trash'></i> Delete</a>
                                                                           </button>
                                                                       </span>
-                                                                      @include('Modal.editpost')
+                                                                      {{-- @include('Modal.editpost') --}}
                                                               </td>
                                                           </tr>
                                                       @endforeach

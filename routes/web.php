@@ -45,7 +45,8 @@ Route::controller(CustomUserController::class)->group(function(){
     Route::get('addpost','newpost')->name('new-post');
     Route::get('category','category')->name('list-category');
 
-    Route::post('/add', 'addnew');
+    Route::post('/addnewpost', 'addpost')->name('add-post');
+    Route::post('add','addnew');
 });
  
 
