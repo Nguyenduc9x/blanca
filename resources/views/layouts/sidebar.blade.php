@@ -42,6 +42,7 @@
       </a>
       <div class="collapse" id="charts">
         <ul class="nav flex-column sub-menu">
+          <li class="nav-item"> <a class="nav-link" href="{{route('image-upload')}}">Upload Image</a></li>
           <li class="nav-item"> <a class="nav-link" href="#">Add/delete</a></li>
         </ul>
       </div>

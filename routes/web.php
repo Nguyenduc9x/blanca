@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CustomUserController;
+use App\Http\Controllers\FileController;
 use Illuminate\Auth\Events\Logout;
 use Illuminate\Support\Facades\Route;
 use PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Report\Php;
@@ -46,8 +47,13 @@ Route::controller(CustomUserController::class)->group(function(){
     Route::get('category','category')->name('list-category');
 
     Route::post('/addnewpost', 'addpost')->name('add-post');
+    
     Route::post('add','addnew');
 });
- 
-
+Route::controller(FileController::class)->group(function(){
+    Route::get('create/', 'create')->name('image-upload');
+    Route::post('create/', 'store');
+    Route::get('edit/{id}', 'edit')->name('file.edit');
+    Route::post('edit/', 'update');
+});
 
